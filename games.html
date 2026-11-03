@@ -2,181 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Programming | Candy Con</title>
-
-  <!-- bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- google font -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-
-  <!-- custom CSS -->
-  <link rel="stylesheet" href="style.css">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff1f5">
+  <meta name="description" content="Mini games and little moments to recharge.">
+  <title>The Playroom ♡ | MY LITTLE SPACE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="inner-pages.css">
   <link rel="icon" type="image/png" href="assets/favicon.png">
+  <script src="games.js" defer></script>
 </head>
-
-<body class="programming-page">
-
-<header class="top-bar">
-<div class="left-section">
-  <a href="index.html">
-    <img src="assets/home.png" alt="Back to Candy Con Home" class="logo home-logo">
-  </a>
-</div>
-
-  <nav class="main-menu">
-    <a href="programming.html">Programming</a>
-    <a href="exhibitors.html">Exhibitors</a>
-    <a href="about.html">About</a>
-    <a href="faq.html">FAQ</a>
-  </nav>
-
-  <div class="utility-menu">
-    <a href="contact.html" class="utility-item">Contact Us</a>
-    <span class="utility-item">Log In</span>
-    <button class="utility-button">Sign Up</button>
+<body class="home-page interior-page games-page">
+  <header class="top-bar">
+    <a href="index.html" class="brand-name" aria-label="My Little Space home">
+      <span class="brand-home-icon" aria-hidden="true"><img src="assets/home.png" alt=""></span>
+      <span>MY LITTLE SPACE <span class="brand-heart">♡</span></span>
+    </a>
+    <nav class="main-menu" aria-label="Main navigation"><a href="index.html">Home</a>
+<a href="recipes.html">The Kitchen</a>
+<a href="notes.html">Little Thoughts</a>
+<a href="games.html" class="is-active" aria-current="page">The Playroom</a>
+<a href="about.html">About</a></nav>
+    <a href="contact.html" class="letterbox-link" aria-label="Visit the Letterbox"><span aria-hidden="true">♡</span><span class="letterbox-label">Letterbox</span></a>
+  </header>
+  <main>
+    <section class="inner-hero" aria-labelledby="page-heading">
+      <div class="inner-width hero-layout">
+        <div class="hero-message">
+          <p class="kicker">SMALL GAMES FOR LITTLE BREAKS</p>
+          <h1 id="page-heading" class="hero-title">The <em>Playroom</em></h1>
+          <p class="hero-copy">A place to put the to-do list aside for a moment. Play a tiny game, open a lucky letter, or simply have a little fun.</p>
+          <a class="outline-btn" href="#playroom-games">Choose a game ↓</a>
+        </div>
+        <div class="hero-sticker" aria-hidden="true"><img src="assets/games.png" alt=""></div>
+      </div>
+    </section>
+    <section class="inner-content" id="playroom-games" aria-labelledby="games-heading"><div class="inner-width">
+  <div class="section-heading"><div><p class="section-eyebrow">A LITTLE PLAYTIME</p><h2 id="games-heading">Choose your tiny adventure</h2><p>No deadlines here. Just a couple of cute distractions.</p></div></div>
+  <div class="game-grid">
+    <section class="game-panel" aria-labelledby="memory-heading">
+      <div class="game-head"><span class="game-symbol" aria-hidden="true">🌷</span><div><h3 id="memory-heading">Memory Match</h3><p class="game-subtitle">Flip the cards and find all six cozy pairs.</p></div></div>
+      <div class="game-tools"><div><strong id="memory-moves">0</strong> <span class="tiny-label">moves</span> · <strong id="memory-matched">0/6</strong> <span class="tiny-label">pairs</span></div><button type="button" class="small-action" id="memory-reset">↻ New game</button></div>
+      <p class="game-status" id="memory-status" role="status">Pick two cards to begin ♡</p>
+      <div class="memory-board" id="memory-board" aria-label="Memory match cards"></div>
+    </section>
+    <section class="game-panel" aria-labelledby="ttt-heading">
+      <div class="game-head"><span class="game-symbol" aria-hidden="true">🎀</span><div><h3 id="ttt-heading">Tic-Tac-Toe</h3><p class="game-subtitle">You are 🌸. Play against the computer's ♡.</p></div></div>
+      <div class="game-tools"><span class="tiny-label">Just for fun, no pressure.</span><button type="button" class="small-action" id="ttt-reset">↻ Play again</button></div>
+      <p id="ttt-status" class="game-status" role="status">Your turn! Pick a square 🌸</p>
+      <div class="ttt-board" id="ttt-board" aria-label="Tic-tac-toe board"></div>
+    </section>
+    <section class="game-panel wide" aria-labelledby="fortune-heading">
+      <div class="game-head"><span class="game-symbol" aria-hidden="true">💌</span><div><h3 id="fortune-heading">A Lucky Little Letter</h3><p class="game-subtitle">Open an envelope for a tiny dose of encouragement.</p></div></div>
+      <div class="fortune-box"><div class="fortune-paper" id="fortune-text" aria-live="polite">A little note is waiting just for you... ♡</div><button type="button" class="pill-btn" id="fortune-open">✉ Open a letter</button></div>
+    </section>
   </div>
-</header>
-
-<main class="programming-main">
-
-  <!-- DAY 1 -->
-  <section id="day1" class="schedule-section">
-    <div class="schedule-box">
-      <div class="schedule-heading-row">
-        <div>
-          <h1>Candy Con Programming</h1>
-          <h2>Day 1 Schedule</h2>
-        </div>
-
-        <a href="#day2" class="schedule-arrow arrow-right" aria-label="Scroll to Day 2">
-		  <img src="assets/arrow.png" alt="Go to Day 2">
-		</a>
-      </div>
-
-      <p class="schedule-intro">
-        Sweet panels, sparkly performances, dramatic fandom moments, and a little bit of chaos.
-      </p>
-
-      <div class="schedule-table-wrap">
-        <table class="schedule-table">
-          <thead>
-            <tr>
-              <th>Time</th>
-              <th>Program</th>
-              <th>Location</th>
-              <th>Type</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>10:00 AM</td>
-              <td>Opening Ceremony</td>
-              <td>Main Stage</td>
-              <td>Welcome</td>
-            </tr>
-            <tr>
-              <td>11:30 AM</td>
-              <td>Cosplay Crafting 101</td>
-              <td>Panel Room A</td>
-              <td>Workshop</td>
-            </tr>
-            <tr>
-              <td>1:00 PM</td>
-              <td>Artist Alley Walkthrough</td>
-              <td>Exhibit Hall</td>
-              <td>Tour</td>
-            </tr>
-            <tr>
-              <td>3:00 PM</td>
-              <td>Random Dance Party</td>
-              <td>Dance Zone</td>
-              <td>Performance</td>
-            </tr>
-            <tr>
-              <td>5:30 PM</td>
-              <td>Voice Actor Q&amp;A</td>
-              <td>Main Stage</td>
-              <td>Panel</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- DAY 2 -->
-  <section id="day2" class="schedule-section">
-    <div class="schedule-box">
-      <div class="schedule-heading-row">
-        <a href="#day1" class="schedule-arrow arrow-left" aria-label="Scroll back to Day 1">
-		  <img src="assets/arrow.png" alt="Go back to Day 1">
-		</a>
-
-        <div class="day2-heading">
-          <h1>Candy Con Programming</h1>
-          <h2>Day 2 Schedule</h2>
-        </div>
-      </div>
-
-      <p class="schedule-intro">
-        More panels, more sugar, more questionable playlist choices, and many tiny magical problems.
-      </p>
-
-      <div class="schedule-table-wrap">
-        <table class="schedule-table">
-          <thead>
-            <tr>
-              <th>Time</th>
-              <th>Program</th>
-              <th>Location</th>
-              <th>Type</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>10:30 AM</td>
-              <td>Morning Anime Trivia</td>
-              <td>Panel Room B</td>
-              <td>Game</td>
-            </tr>
-            <tr>
-              <td>12:00 PM</td>
-              <td>Merch Design Talk</td>
-              <td>Creative Room</td>
-              <td>Panel</td>
-            </tr>
-            <tr>
-              <td>2:00 PM</td>
-              <td>Cosplay Runway</td>
-              <td>Main Stage</td>
-              <td>Showcase</td>
-            </tr>
-            <tr>
-              <td>4:00 PM</td>
-              <td>Fan Zine Meetup</td>
-              <td>Artist Alley</td>
-              <td>Community</td>
-            </tr>
-            <tr>
-              <td>6:00 PM</td>
-              <td>Closing Party</td>
-              <td>Dance Zone</td>
-              <td>Performance</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+ 
+</div></section>
+  </main>
+  <footer class="comfort-footer"><span class="footer-line" aria-hidden="true"></span><span>MY LITTLE SPACE ♡ &nbsp;·&nbsp; A COZY SPACE FOR REST, CREATIVITY &amp; EVERYDAY JOYS.</span><span class="footer-line" aria-hidden="true"></span></footer>
 </body>
 </html>

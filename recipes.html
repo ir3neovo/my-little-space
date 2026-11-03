@@ -2,90 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exhibitors | Candy Con</title>
-
-  <!-- bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- google font -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-
-  <!-- custom CSS -->
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff1f5">
+  <meta name="description" content="Cozy recipes, comfort food, and sweet little favourites.">
+  <title>The Kitchen ♡ | MY LITTLE SPACE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="inner-pages.css">
   <link rel="icon" type="image/png" href="assets/favicon.png">
+  <script src="recipes.js" defer></script>
 </head>
-
-<body class="exhibitors-page">
-
-<header class="top-bar">
-  <!-- left side -->
-	<div class="left-section">
-	  <a href="index.html">
-		<img src="assets/home.png" alt="Back to Candy Con Home" class="logo home-logo">
-	  </a>
-	</div>
-
-  <nav class="main-menu">
-    <a href="programming.html">Programming</a>
-    <a href="exhibitors.html">Exhibitors</a>
-    <a href="about.html">About</a>
-    <a href="faq.html">FAQ</a>
-  </nav>
-
-  <!-- right side -->
-  <div class="utility-menu">
-		<a href="contact.html" class="utility-item">Contact Us</a>
-		<span class="utility-item">Log In</span>
-		<button class="utility-button">Sign Up</button>
- </div>
-</header>
-
-<main class="exhibitors-main">
-  <section class="exhibitors-box">
-    <h1>Candy Con Exhibitors</h1>
-    <p class="exhibitors-intro">
-      Meet our sweet little lineup of artists, makers, dreamers, and chaotic merch magicians.
-    </p>
-
-    <div class="exhibitor-grid">
-
-      <article class="exhibitor-card">
-        <div class="exhibitor-img-wrap">
-          <img src="assets/ex1.png" alt="Exhibitor One" class="exhibitor-img">
+<body class="home-page interior-page recipes-page">
+  <header class="top-bar">
+    <a href="index.html" class="brand-name" aria-label="My Little Space home">
+      <span class="brand-home-icon" aria-hidden="true"><img src="assets/home.png" alt=""></span>
+      <span>MY LITTLE SPACE <span class="brand-heart">♡</span></span>
+    </a>
+    <nav class="main-menu" aria-label="Main navigation"><a href="index.html">Home</a>
+<a href="recipes.html" class="is-active" aria-current="page">The Kitchen</a>
+<a href="notes.html">Little Thoughts</a>
+<a href="games.html">The Playroom</a>
+<a href="about.html">About</a></nav>
+    <a href="contact.html" class="letterbox-link" aria-label="Visit the Letterbox"><span aria-hidden="true">♡</span><span class="letterbox-label">Letterbox</span></a>
+  </header>
+  <main>
+    <section class="inner-hero" aria-labelledby="page-heading">
+      <div class="inner-width hero-layout">
+        <div class="hero-message">
+          <p class="kicker">RECIPES, TREATS & COMFORT FOOD</p>
+          <h1 id="page-heading" class="hero-title">The <em>Kitchen</em></h1>
+          <p class="hero-copy">A little collection of things I love to make (and eat). Pull up a chair, find something lovely, and stay awhile.</p>
+          <a class="outline-btn" href="#recipe-collection">Browse the recipe box ↓</a>
         </div>
-
-        <div class="exhibitor-info">
-          <h2>Sugar Star Studio</h2>
-          <p class="exhibitor-tag">Art Prints • Stickers • Charms</p>
-          <p>
-            Lorem ipsum cotton candy sparkle desk setup, tiny mascot stickers,
-            shiny acrylic charms, dramatic poster corners, and a suspicious amount
-            of pastel packaging.
-          </p>
-        </div>
-      </article>
-
-      <article class="exhibitor-card">
-        <div class="exhibitor-img-wrap">
-          <img src="assets/ex2.png" alt="Exhibitor Two" class="exhibitor-img">
-        </div>
-
-        <div class="exhibitor-info">
-          <h2>Moonberry Market</h2>
-          <p class="exhibitor-tag">Handmade Goods • Plushies • Zines</p>
-          <p>
-            Placeholder text floating around like strawberry soda bubbles, cozy
-            artist alley lights, soft handmade treasures, glitter tape, and one
-            very dramatic display table.
-          </p>
-        </div>
-      </article>
-
+        <div class="hero-sticker" aria-hidden="true"><img src="assets/recipes.png" alt=""></div>
+      </div>
+    </section>
+    <section class="inner-content" id="recipe-collection" aria-labelledby="collection-heading">
+  <div class="inner-width">
+    <div class="section-heading">
+      <div><p class="section-eyebrow">MY PERSONAL RECIPE BOX</p><h2 id="collection-heading">A little taste of comfort</h2><p>Saved flavours, warm memories, and something sweet for later.</p></div>
+      <button type="button" class="pill-btn" id="new-recipe-btn">＋ Add a recipe</button>
     </div>
-  </section>
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <div class="toolbar">
+      <div class="chip-row" id="recipe-filters" aria-label="Filter recipes by category">
+        <button class="filter-chip is-active" type="button" data-category="All" aria-pressed="true">All recipes</button>
+        <button class="filter-chip" type="button" data-category="Breakfast" aria-pressed="false">Breakfast</button>
+        <button class="filter-chip" type="button" data-category="Savoury" aria-pressed="false">Savoury</button>
+        <button class="filter-chip" type="button" data-category="Sweets" aria-pressed="false">Sweets</button>
+        <button class="filter-chip" type="button" data-category="Drinks" aria-pressed="false">Drinks</button>
+      </div>
+      <label class="search-box"><span aria-hidden="true">⌕</span><input id="recipe-search" type="search" placeholder="Search recipes..." aria-label="Search recipes"></label>
+    </div>
+    <div class="card-grid" id="recipe-grid" aria-live="polite"></div>
+    <div class="empty-state" id="recipe-empty" hidden><span>🍰</span><h3>Nothing in this little corner yet</h3><p>Try another search, or add something delicious.</p></div>
+  </div>
+</section>
+<dialog id="recipe-dialog" class="cozy-dialog" aria-label="Recipe details"><div class="dialog-inner"><div class="dialog-top"><h2 id="recipe-detail-title">A little recipe</h2><button class="icon-close" type="button" data-close-dialog="recipe-dialog" aria-label="Close">×</button></div><div class="dialog-content" id="recipe-detail-content"></div></div></dialog>
+<dialog id="recipe-form-dialog" class="cozy-dialog" aria-labelledby="recipe-form-title"><div class="dialog-inner"><div class="dialog-top"><h2 id="recipe-form-title">Add to my recipe box ♡</h2><button class="icon-close" type="button" data-close-dialog="recipe-form-dialog" aria-label="Close">×</button></div>
+  <form id="recipe-form" class="cozy-form">
+    <div class="local-note">This is a frontend preview. Your new recipe is saved to <strong>this browser only</strong>—not published or synced yet.</div>
+    <div class="field"><label for="r-title">Recipe name *</label><input id="r-title" name="title" maxlength="90" required placeholder="Grandma's strawberry pancakes"></div>
+    <div class="form-two"><div class="field"><label for="r-category">Category</label><select id="r-category" name="category"><option>Breakfast</option><option>Savoury</option><option>Sweets</option><option>Drinks</option></select></div><div class="field"><label for="r-time">Prep / cook time (minutes)</label><input id="r-time" type="number" name="time" min="1" max="600" value="20" required></div></div>
+    <div class="field"><label for="r-description">Short description</label><input id="r-description" name="description" maxlength="180" placeholder="A warm little favourite..."></div>
+    <div class="field"><label for="r-ingredients">Ingredients * (one per line)</label><textarea id="r-ingredients" name="ingredients" required placeholder="1 cup flour
+2 eggs
+1 tbsp honey"></textarea></div>
+    <div class="field"><label for="r-steps">Instructions * (one step per line)</label><textarea id="r-steps" name="steps" required placeholder="Mix everything together
+Cook until golden
+Serve warm"></textarea></div>
+    <div class="dialog-actions"><button type="button" class="outline-btn" data-close-dialog="recipe-form-dialog">Cancel</button><button type="submit" class="pill-btn">Save recipe ♡</button></div>
+  </form>
+</div></dialog>
+  </main>
+  <footer class="comfort-footer"><span class="footer-line" aria-hidden="true"></span><span>MY LITTLE SPACE ♡ &nbsp;·&nbsp; A COZY SPACE FOR REST, CREATIVITY &amp; EVERYDAY JOYS.</span><span class="footer-line" aria-hidden="true"></span></footer>
 </body>
 </html>
