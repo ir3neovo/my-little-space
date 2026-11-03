@@ -1,110 +1,278 @@
-/* MY LITTLE SPACE — The Kitchen.
-   Featured recipes are part of the site. New entries are saved in this browser
-   until the database is connected.
-*/
 (() => {
   'use strict';
+
   const KEY = 'my-little-space:recipe-drafts:v1';
-  // Featured recipe. Additional user recipes are stored in this browser.
-  const featuredRecipes = [
-    {
-      id: 'strawberry-matcha-latte',
-      title: 'Strawberry Matcha Latte',
-      category: 'Drinks',
-      time: null, // Preparation time not provided.
-      image: 'assets/strawberrymatcha.png',
-      emoji: '🍓',
-      color: '#e5e8dc',
-      description: 'A sweet strawberry-and-matcha treat with beautiful pink and green layers.',
-      ingredients: [
-        'Strawberry jam — 20 g',
-        'Matcha powder — 3 g',
-        'Warm water — 30 ml',
-        'Milk — 150 ml',
-        'Some ice'
-      ],
-      steps: [
-        'Spoon the strawberry jam into the bottom of a glass.',
-        'Whisk the matcha powder with the warm water until smooth.',
-        'Add some ice to the glass, then pour in the milk.',
-        'Slowly pour the prepared matcha over the milk and enjoy.'
-      ],
-      createdAt: '2026-11-02',
-      source: 'featured'
+  const SUPABASE_URL = 'https://wkxtaladteeyiwniyguv.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_a17phmd41BZGfemra65VPQ_Iic-YEJ7';
+
+  const $ = (selector) => document.querySelector(selector);
+  const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  })[character]);
+  const lines = (value) => String(value ?? '').split('\n').map((line) => line.trim()).filter(Boolean);
+
+  const colors = {
+    Breakfast: '#f5d9df', Savoury: '#f6dfd7', Sweets: '#f4dce9', Drinks: '#e3ebe0'
+  };
+  const emoji = { Breakfast: '🥞', Savoury: '🍲', Sweets: '🍰', Drinks: '🍵' };
+
+  function loadDrafts() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || '[]');
+      return Array.isArray(saved)
+        ? saved.filter((recipe) => recipe && typeof recipe.title === 'string')
+        : [];
+    } catch {
+      return [];
     }
-  ];
-  const $ = (sel) => document.querySelector(sel);
-  const escapeHTML = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const lines = (s) => String(s ?? '').split('\n').map(x => x.trim()).filter(Boolean);
-  const niceDate = (date) => { const d = new Date(`${String(date).slice(0,10)}T12:00:00`); return isNaN(d) ? '' : d.toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'}); };
-  function loadDrafts() { try { const x = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(x) ? x.filter(v => v && typeof v.title === 'string') : []; } catch { return []; } }
+  }
+
   let drafts = loadDrafts();
+  let databaseRecipes = [];
   let category = 'All';
   let search = '';
   let editingId = null;
+
   const dialog = $('#recipe-dialog');
   const formDialog = $('#recipe-form-dialog');
   const form = $('#recipe-form');
-  const colors = {Breakfast:'#f5d9df',Savoury:'#f6dfd7',Sweets:'#f4dce9',Drinks:'#e3ebe0'};
-  const emoji = {Breakfast:'🥞',Savoury:'🍲',Sweets:'🍰',Drinks:'🍵'};
-  const all = () => [...drafts, ...featuredRecipes];
-  const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(drafts)); return true; } catch { alert('This browser blocked local storage. Your recipe could not be saved.'); return false; } };
-  function render() {
-    const items = all().filter(r => (category === 'All' || r.category === category) && [r.title,r.description,r.category].join(' ').toLowerCase().includes(search));
-    $('#recipe-grid').innerHTML = items.map(r => `<article class="panel-card recipe-card">
-      <div class="recipe-picture" style="--recipe-bg:${escapeHTML(r.color || colors[r.category] || '#f6dce5')}">
-        ${r.image
-          ? `<img class="recipe-photo" src="${escapeHTML(r.image)}" alt="${escapeHTML(r.title)}" loading="lazy" decoding="async">`
-          : `<span class="recipe-emoji" aria-hidden="true">${escapeHTML(r.emoji || emoji[r.category] || '🍓')}</span>`}
-        <span class="recipe-category-label">${escapeHTML(r.category)}</span>
-      </div>
-      <div class="recipe-body"><span class="card-meta">${r.source === 'local' ? '♡ MY LOCAL RECIPE' : '♡ FROM MY KITCHEN'}</span>
-      <h3 class="card-title">${escapeHTML(r.title)}</h3><p class="card-desc">${escapeHTML(r.description || 'A lovely little recipe for a cozy moment.')}</p>
-      <div class="card-bottom"><span class="recipe-stats">${r.time ? `◷ ${Number(r.time)} min` : '♡ Made with love'}</span><button type="button" class="subtle-link" data-open-recipe="${escapeHTML(r.id)}">View recipe ↗</button></div></div></article>`).join('');
-    $('#recipe-empty').hidden = items.length !== 0;
+  const grid = $('#recipe-grid');
+  const emptyMessage = $('#recipe-empty');
+  const all = () => [...drafts, ...databaseRecipes];
+
+  // The publishable key may be included in a public website. Never use a
+  // Supabase secret key or service-role key here.
+  const configured =
+    !SUPABASE_URL.includes('wkxtaladteeyiwniyguv') &&
+    !SUPABASE_PUBLISHABLE_KEY.includes('sb_publishable_a17phmd41BZGfemra65VPQ_Iic-YEJ7');
+
+  const db = configured && window.supabase?.createClient
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+    : null;
+
+  function setStatus(message) {
+    let status = $('#recipe-status');
+    if (!status) {
+      status = document.createElement('p');
+      status.id = 'recipe-status';
+      status.setAttribute('role', 'status');
+      status.style.cssText = 'text-align:center;margin:12px 0;color:#8d7180;';
+      grid.before(status);
+    }
+    status.textContent = message;
+    status.hidden = !message;
   }
+
+  function persist() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(drafts));
+      return true;
+    } catch {
+      alert('This browser blocked local storage. Your recipe could not be saved.');
+      return false;
+    }
+  }
+
+  function render() {
+    const items = all().filter((recipe) =>
+      (category === 'All' || recipe.category === category) &&
+      [recipe.title, recipe.description, recipe.category]
+        .join(' ').toLowerCase().includes(search)
+    );
+
+    grid.innerHTML = items.map((recipe) => `
+      <article class="panel-card recipe-card">
+        <div class="recipe-picture" style="--recipe-bg:${escapeHTML(recipe.color || colors[recipe.category] || '#f6dce5')}">
+          ${recipe.image
+            ? `<img class="recipe-photo" src="${escapeHTML(recipe.image)}" alt="${escapeHTML(recipe.title)}" loading="lazy" decoding="async">`
+            : `<span class="recipe-emoji" aria-hidden="true">${escapeHTML(recipe.emoji || emoji[recipe.category] || '🍓')}</span>`}
+          <span class="recipe-category-label">${escapeHTML(recipe.category)}</span>
+        </div>
+        <div class="recipe-body">
+          <span class="card-meta">${recipe.source === 'local' ? '♡ MY LOCAL RECIPE' : '♡ FROM MY KITCHEN'}</span>
+          <h3 class="card-title">${escapeHTML(recipe.title)}</h3>
+          <p class="card-desc">${escapeHTML(recipe.description || 'A lovely little recipe for a cozy moment.')}</p>
+          <div class="card-bottom">
+            <span class="recipe-stats">${recipe.time ? `◷ ${Number(recipe.time)} min` : '♡ Made with love'}</span>
+            <button type="button" class="subtle-link" data-open-recipe="${escapeHTML(recipe.id)}">View recipe ↗</button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    emptyMessage.hidden = items.length !== 0;
+  }
+
+  async function loadRecipesFromDatabase() {
+    if (!db) {
+      console.warn('Supabase not configured. Check the CDN script, project URL, and publishable key.');
+      setStatus('Database connection is not configured yet.');
+      return;
+    }
+
+    setStatus('Loading recipes…');
+    try {
+      const { data, error } = await db
+        .from('recipes')
+        .select('id, title, category, description, ingredients, steps, image_url, prep_minutes, created_at')
+        .eq('published', true)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      databaseRecipes = (data || []).map((recipe) => ({
+        id: recipe.id,
+        title: recipe.title,
+        category: recipe.category,
+        description: recipe.description,
+        ingredients: recipe.ingredients,
+        steps: recipe.steps,
+        image: recipe.image_url,
+        time: recipe.prep_minutes,
+        createdAt: recipe.created_at,
+        source: 'database',
+        color: colors[recipe.category] || '#f6dce5',
+        emoji: emoji[recipe.category] || '🍓'
+      }));
+
+      setStatus('');
+      render();
+    } catch (error) {
+      console.error('Unable to load recipes from Supabase:', error);
+      setStatus('Recipes could not be loaded right now. Please try again later.');
+    }
+  }
+
   function openDetail(id) {
-    const r = all().find(x => x.id === id); if (!r) return;
-    $('#recipe-detail-title').textContent = r.title;
-    const ingredients = Array.isArray(r.ingredients) ? r.ingredients : [];
-    const steps = Array.isArray(r.steps) ? r.steps : [];
-    $('#recipe-detail-content').innerHTML = `<span class="dialog-stamp">${escapeHTML(r.category)}${r.time ? ` · ${Number(r.time)} minutes` : ''}${r.source === 'local' ? ' · saved in this browser' : ''}</span>
-      ${r.image ? `<img class="recipe-detail-photo" src="${escapeHTML(r.image)}" alt="${escapeHTML(r.title)}">` : ''}
-      <p>${escapeHTML(r.description)}</p><h3>What you'll need</h3><ul>${ingredients.map(t => `<li>${escapeHTML(t)}</li>`).join('')}</ul>
-      <h3>How to make it</h3><ol>${steps.map(t => `<li>${escapeHTML(t)}</li>`).join('')}</ol>
-      ${r.source === 'local' ? `<div class="dialog-actions"><button type="button" class="delete-action" data-delete-recipe="${escapeHTML(r.id)}">Delete this draft</button><button type="button" class="outline-btn" data-edit-recipe="${escapeHTML(r.id)}">Edit recipe</button></div>` : ''}`;
+    const recipe = all().find((item) => item.id === id);
+    if (!recipe) return;
+
+    $('#recipe-detail-title').textContent = recipe.title;
+    const ingredients = Array.isArray(recipe.ingredients) ? recipe.ingredients : [];
+    const steps = Array.isArray(recipe.steps) ? recipe.steps : [];
+
+    $('#recipe-detail-content').innerHTML = `
+      <span class="dialog-stamp">${escapeHTML(recipe.category)}${recipe.time ? ` · ${Number(recipe.time)} minutes` : ''}${recipe.source === 'local' ? ' · saved in this browser' : ''}</span>
+      ${recipe.image ? `<img class="recipe-detail-photo" src="${escapeHTML(recipe.image)}" alt="${escapeHTML(recipe.title)}">` : ''}
+      <p>${escapeHTML(recipe.description)}</p>
+      <h3>What you'll need</h3>
+      <ul>${ingredients.map((item) => `<li>${escapeHTML(item)}</li>`).join('')}</ul>
+      <h3>How to make it</h3>
+      <ol>${steps.map((item) => `<li>${escapeHTML(item)}</li>`).join('')}</ol>
+      ${recipe.source === 'local' ? `
+        <div class="dialog-actions">
+          <button type="button" class="delete-action" data-delete-recipe="${escapeHTML(recipe.id)}">Delete this draft</button>
+          <button type="button" class="outline-btn" data-edit-recipe="${escapeHTML(recipe.id)}">Edit recipe</button>
+        </div>` : ''}`;
     dialog.showModal();
   }
+
   function openForm(id = null) {
-    form.reset(); editingId = id;
-    const r = drafts.find(x => x.id === id);
-    $('#recipe-form-title').textContent = r ? 'Edit this recipe ♡' : 'Add to my recipe box ♡';
-    if(r) {
-      for(const name of ['title','category','time','description']) form.elements[name].value = r[name] ?? '';
-      form.elements.ingredients.value = r.ingredients.join('\n');
-      form.elements.steps.value = r.steps.join('\n');
+    form.reset();
+    editingId = id;
+    const recipe = drafts.find((item) => item.id === id);
+    $('#recipe-form-title').textContent = recipe ? 'Edit this recipe ♡' : 'Add to my recipe box ♡';
+
+    if (recipe) {
+      for (const name of ['title', 'category', 'time', 'description']) {
+        form.elements[name].value = recipe[name] ?? '';
+      }
+      form.elements.ingredients.value = recipe.ingredients.join('\n');
+      form.elements.steps.value = recipe.steps.join('\n');
     }
     formDialog.showModal();
   }
+
   $('#new-recipe-btn').addEventListener('click', () => openForm());
-  $('#recipe-grid').addEventListener('click', e => { const button = e.target.closest('[data-open-recipe]'); if(button) openDetail(button.dataset.openRecipe); });
-  $('#recipe-filters').addEventListener('click', e => { const button = e.target.closest('[data-category]'); if(!button) return; category=button.dataset.category; document.querySelectorAll('#recipe-filters .filter-chip').forEach(b => { const active = b === button; b.classList.toggle('is-active',active); b.setAttribute('aria-pressed',String(active)); }); render(); });
-  $('#recipe-search').addEventListener('input', e => { search = e.target.value.trim().toLowerCase(); render(); });
-  form.addEventListener('submit', e => {
-    e.preventDefault(); const d = new FormData(form);
-    const entry = {id:editingId || `local-${Date.now()}`,title:String(d.get('title')).trim(),category:String(d.get('category')),time:Math.min(600, Math.max(1, Number(d.get('time'))||20)),description:String(d.get('description')).trim(),ingredients:lines(d.get('ingredients')),steps:lines(d.get('steps')),createdAt:new Date().toISOString().slice(0,10),source:'local',emoji:emoji[String(d.get('category'))],color:colors[String(d.get('category'))]};
-    if(!entry.title || !entry.ingredients.length || !entry.steps.length) return;
-    if(editingId) drafts = drafts.map(r => r.id===editingId?entry:r); else drafts.unshift(entry);
-    if(!persist()) return;
-    category='All';search='';$('#recipe-search').value='';document.querySelectorAll('#recipe-filters .filter-chip').forEach(b => {const active=b.dataset.category==='All'; b.classList.toggle('is-active',active); b.setAttribute('aria-pressed',String(active));});
-    formDialog.close();render();
+
+  grid.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-open-recipe]');
+    if (button) openDetail(button.dataset.openRecipe);
   });
-  $('#recipe-detail-content').addEventListener('click', e => {
-    const del=e.target.closest('[data-delete-recipe]'); const edit=e.target.closest('[data-edit-recipe]');
-    if(del && confirm('Delete this locally saved recipe?')) {drafts=drafts.filter(x => x.id!==del.dataset.deleteRecipe); if(persist()){dialog.close();render();}}
-    if(edit) { const id=edit.dataset.editRecipe; dialog.close();openForm(id); }
+
+  $('#recipe-filters').addEventListener('click', (event) => {
+    const button = event.target.closest('[data-category]');
+    if (!button) return;
+    category = button.dataset.category;
+    document.querySelectorAll('#recipe-filters .filter-chip').forEach((chip) => {
+      const active = chip === button;
+      chip.classList.toggle('is-active', active);
+      chip.setAttribute('aria-pressed', String(active));
+    });
+    render();
   });
-  document.querySelectorAll('[data-close-dialog]').forEach(b => b.addEventListener('click', () => document.getElementById(b.dataset.closeDialog).close()));
-  [dialog,formDialog].forEach(d => d.addEventListener('click', e => { if(e.target===d)d.close(); }));
+
+  $('#recipe-search').addEventListener('input', (event) => {
+    search = event.target.value.trim().toLowerCase();
+    render();
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const chosenCategory = String(data.get('category') || 'Other');
+    const entry = {
+      id: editingId || `local-${Date.now()}`,
+      title: String(data.get('title') || '').trim(),
+      category: chosenCategory,
+      time: Math.min(600, Math.max(1, Number(data.get('time')) || 20)),
+      description: String(data.get('description') || '').trim(),
+      ingredients: lines(data.get('ingredients')),
+      steps: lines(data.get('steps')),
+      createdAt: new Date().toISOString().slice(0, 10),
+      source: 'local',
+      emoji: emoji[chosenCategory],
+      color: colors[chosenCategory]
+    };
+    if (!entry.title || !entry.ingredients.length || !entry.steps.length) return;
+
+    const oldDrafts = drafts;
+    drafts = editingId
+      ? drafts.map((recipe) => recipe.id === editingId ? entry : recipe)
+      : [entry, ...drafts];
+    if (!persist()) {
+      drafts = oldDrafts;
+      return;
+    }
+
+    category = 'All';
+    search = '';
+    $('#recipe-search').value = '';
+    document.querySelectorAll('#recipe-filters .filter-chip').forEach((chip) => {
+      const active = chip.dataset.category === 'All';
+      chip.classList.toggle('is-active', active);
+      chip.setAttribute('aria-pressed', String(active));
+    });
+    formDialog.close();
+    render();
+  });
+
+  $('#recipe-detail-content').addEventListener('click', (event) => {
+    const removeButton = event.target.closest('[data-delete-recipe]');
+    const editButton = event.target.closest('[data-edit-recipe]');
+    if (removeButton && confirm('Delete this locally saved recipe?')) {
+      const previous = drafts;
+      drafts = drafts.filter((recipe) => recipe.id !== removeButton.dataset.deleteRecipe);
+      if (persist()) {
+        dialog.close();
+        render();
+      } else {
+        drafts = previous;
+      }
+    }
+    if (editButton) {
+      dialog.close();
+      openForm(editButton.dataset.editRecipe);
+    }
+  });
+
+  document.querySelectorAll('[data-close-dialog]').forEach((button) =>
+    button.addEventListener('click', () => document.getElementById(button.dataset.closeDialog).close())
+  );
+  [dialog, formDialog].forEach((item) =>
+    item.addEventListener('click', (event) => { if (event.target === item) item.close(); })
+  );
+
   render();
+  loadRecipesFromDatabase();
 })();
