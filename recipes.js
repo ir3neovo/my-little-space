@@ -182,7 +182,7 @@
     formDialog.showModal();
   }
 
-  $('#new-recipe-btn').addEventListener('click', () => openForm());
+  $('#new-recipe-btn')?.addEventListener('click', () => openForm());
 
   grid.addEventListener('click', (event) => {
     const button = event.target.closest('[data-open-recipe]');
