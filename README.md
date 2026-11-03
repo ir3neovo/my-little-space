@@ -23,3 +23,9 @@ HTML, CSS, and JavaScript
 Bootstrap 5 (including the homepage image carousel)
 
 Google Fonts
+
+Credits
+
+Visual and decorative elements are sourced from Canva.
+
+The website's favicon is hand-drawn by me. 
