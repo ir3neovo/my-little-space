@@ -23,5 +23,3 @@ HTML, CSS, and JavaScript
 Bootstrap 5 (including the homepage image carousel)
 
 Google Fonts
-
-A lot of soft pink and a little creativity ♡
