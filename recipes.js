@@ -40,8 +40,7 @@
   const emptyMessage = $('#recipe-empty');
   const all = () => [...drafts, ...databaseRecipes];
 
-  // The publishable key may be included in a public website. Never use a
-  // Supabase secret key or service-role key here.
+
   const configured =
     !SUPABASE_URL.includes('wkxtaladteeyiwniyguv') &&
     !SUPABASE_PUBLISHABLE_KEY.includes('sb_publishable_a17phmd41BZGfemra65VPQ_Iic-YEJ7');
