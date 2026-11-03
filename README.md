@@ -1,16 +1,27 @@
-# Candy Con
+MY LITTLE SPACE ♡
 
-A personal front-end development project created for practice. 
-The website content is fictional and mainly serves as a playground for building and styling a multi-page event-themed website.
+A cozy little corner of the internet.
 
-## Notes
+Between master's classes, deadlines, and the everyday chaos of life, I wanted somewhere to slow down and collect the little things that make me happy. MY LITTLE SPACE is my personal creative escape — a place for self-reflection, sharing, and finding comfort in small moments.
 
-The content of this website is not intended to represent a real event or organization. It was created mainly for front-end development practice.
+What's inside?
 
-This project was recently moved to GitHub for better version control, project organization, and easier deployment through GitHub Pages.
-## Tech Stack
+The Kitchen — Recipes, treats, and comfort food worth remembering.
 
-- HTML
-- CSS
-- JavaScript
-- Bootstrap
+Little Thoughts — Notes, quotes, reflections, and passing feelings.
+
+The Playroom — Small games for a little break from the day.
+
+About — The story behind this little space.
+
+Letterbox — A place to get in touch.
+
+Built with
+
+HTML, CSS, and JavaScript
+
+Bootstrap 5 (including the homepage image carousel)
+
+Google Fonts
+
+A lot of soft pink and a little creativity ♡
