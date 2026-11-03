@@ -1,11 +1,9 @@
-/* MY LITTLE SPACE — Recipe box, frontend-only demo.
-   Replace localStorage operations with Supabase queries later.
-   Sample recipes are illustrative, not user-submitted recipes.
+/* MY LITTLE SPACE — Recipe box
 */
 (() => {
   'use strict';
   const KEY = 'my-little-space:recipe-drafts:v1';
-  // One featured sample recipe. Additional user recipes are stored in this browser.
+  // One featured recipe.
   const demoRecipes = [
     {
       id: 'demo-4',
@@ -58,7 +56,7 @@
           : `<span class="recipe-emoji" aria-hidden="true">${escapeHTML(r.emoji || emoji[r.category] || '🍓')}</span>`}
         <span class="recipe-category-label">${escapeHTML(r.category)}</span>
       </div>
-      <div class="recipe-body"><span class="card-meta">${r.source === 'local' ? '♡ MY LOCAL RECIPE' : '♡ SAMPLE RECIPE'}</span>
+      <div class="recipe-body"><span class="card-meta">${r.source === 'local' ? '♡ MY LOCAL RECIPE'}</span>
       <h3 class="card-title">${escapeHTML(r.title)}</h3><p class="card-desc">${escapeHTML(r.description || 'A lovely little recipe for a cozy moment.')}</p>
       <div class="card-bottom"><span class="recipe-stats">${r.time ? `◷ ${Number(r.time)} min` : '♡ Made with love'}</span><button type="button" class="subtle-link" data-open-recipe="${escapeHTML(r.id)}">View recipe ↗</button></div></div></article>`).join('');
     $('#recipe-empty').hidden = items.length !== 0;
@@ -68,7 +66,7 @@
     $('#recipe-detail-title').textContent = r.title;
     const ingredients = Array.isArray(r.ingredients) ? r.ingredients : [];
     const steps = Array.isArray(r.steps) ? r.steps : [];
-    $('#recipe-detail-content').innerHTML = `<span class="dialog-stamp">${escapeHTML(r.category)}${r.time ? ` · ${Number(r.time)} minutes` : ''} · ${r.source==='local'?'saved in this browser':'sample recipe'}</span>
+    $('#recipe-detail-content').innerHTML = `<span class="dialog-stamp">${escapeHTML(r.category)}${r.time ? ` · ${Number(r.time)} minutes` : ''} · ${r.source==='local'?'saved in this browser'}</span>
       ${r.image ? `<img class="recipe-detail-photo" src="${escapeHTML(r.image)}" alt="${escapeHTML(r.title)}">` : ''}
       <p>${escapeHTML(r.description)}</p><h3>What you'll need</h3><ul>${ingredients.map(t => `<li>${escapeHTML(t)}</li>`).join('')}</ul>
       <h3>How to make it</h3><ol>${steps.map(t => `<li>${escapeHTML(t)}</li>`).join('')}</ol>
