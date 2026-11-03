@@ -40,10 +40,10 @@
   const emptyMessage = $('#recipe-empty');
   const all = () => [...drafts, ...databaseRecipes];
 
-
   const configured =
-    !SUPABASE_URL.includes('wkxtaladteeyiwniyguv') &&
-    !SUPABASE_PUBLISHABLE_KEY.includes('sb_publishable_a17phmd41BZGfemra65VPQ_Iic-YEJ7');
+  SUPABASE_URL.startsWith('https://') &&
+  SUPABASE_URL.includes('.supabase.co') &&
+  SUPABASE_PUBLISHABLE_KEY.startsWith('sb_publishable_');
 
   const db = configured && window.supabase?.createClient
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
