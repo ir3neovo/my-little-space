@@ -1,174 +1,191 @@
-<!-- last modified April 2026 -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Home Candy Con</title>
-	
-	<!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-	
-	<!-- custom CSS -->
-	<link rel="stylesheet" href="style.css">
-	
-	<link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff1f5">
+  <meta name="description" content="My Little Space — a cozy place for recipes, little thoughts and playful breaks.">
+  <title>MY LITTLE SPACE ♡ | Home</title>
+
+  <!-- working image carousel  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- elegant serif headlines, romantic brand lettering-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
+
+  <!-- homepage-only CSS-->
+  <link rel="stylesheet" href="home.css">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
 </head>
+<body class="home-page">
+  <header class="top-bar">
+    <a href="index.html" class="brand-name" aria-label="My Little Space home">
+      <span class="brand-home-icon" aria-hidden="true">
+        <img src="assets/home.png" alt="">
+      </span>
+      <span>MY LITTLE SPACE <span class="brand-heart">♡</span></span>
+    </a>
 
-<body>
+    <nav class="main-menu" aria-label="Main navigation">
+      <a href="index.html" class="is-active" aria-current="page">Home</a>
+      <a href="recipes.html">The Kitchen</a>
+      <a href="notes.html">Little Thoughts</a>
+      <a href="games.html">The Playroom</a>
+      <a href="about.html">About</a>
+    </nav>
 
-<header class="top-bar">
-	<!-- left side -->
-    <div class="left-section">
-        <img src="https://i.pinimg.com/originals/1c/56/d1/1c56d1e6e3f002f4109a1f59e56cf292.jpg" 
-             alt="Irene Con Logo" class="logo">
-    </div>
+    <a href="contact.html" class="letterbox-link" aria-label="Visit the Letterbox">
+      <span aria-hidden="true">♡</span><span class="letterbox-label">Letterbox</span>
+    </a>
+  </header>
 
-    <nav class="main-menu">
-		<a href="programming.html">Programming</a>
-		<a href="exhibitors.html">Exhibitors</a>
-		<a href="about.html">About</a>
-		<a href="faq.html">FAQ</a>
-	</nav>
-	
-	<!-- right side -->
-	<div class="utility-menu">
-		<a href="contact.html" class="utility-item">Contact Us</a>
-		<span class="utility-item">Log In</span>
-		<button class="utility-button">Sign Up</button>
-	 </div>
-</header>
+  <main>
+    <!-- THREE-SLIDE BOOTSTRAP IMAGE CAROUSEL -->
+    <section id="mainCarousel" class="carousel slide carousel-fade comfort-image-carousel"
+      data-bs-ride="carousel" data-bs-interval="6500" aria-label="Featured spaces">
 
-<!-- carousel replaces blue area of fig1 -->
-<div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Show welcome slide"></button>
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"
+          aria-label="Show notes slide"></button>
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"
+          aria-label="Show games slide"></button>
+      </div>
 
-	<div class="carousel-indicators">
-		<button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
-		<button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
-		<button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
-	</div>
+      <div class="carousel-inner">
+        <div class="carousel-item active slide-one">
+          <img class="carousel-photo"
+            src="https://wallpaperbat.com/img/7223442-anime-girl-wallpaper-4k-girly-background-surreal-fairy.jpg"
+            alt="Dreamy pastel illustrated scenery with flowers" fetchpriority="high">
+          <div class="carousel-caption">
+            <p class="slide-eyebrow">A LITTLE CORNER OF THE INTERNET</p>
+            <h1>Welcome to My Little Space <span aria-hidden="true">♡</span></h1>
+            <p class="slide-description">Something to cook, something to read, and somewhere to slow down.</p>
+            <a href="recipes.html" class="comfort-button">Explore Recipes <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
 
-	<div class="carousel-inner">
-		<!-- slide 1 -->
-		<div class="carousel-item active">
-		  <img src="https://wallpaperbat.com/img/7223442-anime-girl-wallpaper-4k-girly-background-surreal-fairy.jpg" class="d-block w-100" alt="Irene Con Main">
-		  <div class="carousel-caption">
-			<h1>Welcome to Candy Con 2026</h1>
-			<p>The ultimate anime & cosplay experience</p>
-			<a href="contact.html" class="btn btn-danger btn-lg">
-			  Buy Tickets
-			</a>
-		  </div>
-		</div>
-		
-		<!-- slide 2 -->
-		<div class="carousel-item">
-		  <img src="https://wallpaperbat.com/img/7223997-anime-girl-8k-ultra-hd-wallpaper.jpg" class="d-block w-100" alt="Slide 2">
-		  <div class="carousel-caption">
-			<h2 class="hero-text">Random Dance Party</h2>
-			<p>Nominate your favorite K-pop & anime tracks!</p>
-			<a href="contact.html" class="btn btn-warning btn-lg">
-			  Nominate Playlist
-			</a>
-		  </div>
-		</div>
-		
-		<!-- slide 3 -->
-		<div class="carousel-item">
-		  <img src="https://wallpaperbat.com/img/7223920-anime-girl-wallpaper.jpg" class="d-block w-100" alt="Slide 3">
-		  <div class="carousel-caption">
-			<h2 class="hero-text">Artist Alley</h2>
-			<p>Showcase your art and merch to thousands of fans.</p>
-			<a href="contact.html" class="btn btn-success btn-lg">
-			  Sign Up as Vendor
-			</a>
-		</div>
-	</div>
-  
+        <div class="carousel-item slide-two">
+          <img class="carousel-photo"
+            src="https://wallpaperbat.com/img/7223997-anime-girl-8k-ultra-hd-wallpaper.jpg"
+            alt="Pastel illustrated scene" loading="lazy">
+          <div class="carousel-caption">
+            <p class="slide-eyebrow">LITTLE THOUGHTS</p>
+            <h2>Some things are worth writing down.</h2>
+            <p class="slide-description">Passing thoughts, comforting words, and moments worth keeping.</p>
+            <a href="notes.html" class="comfort-button">Read My Notes <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
 
- <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
-   <span class="carousel-control-prev-icon"></span>
- </button>
+        <div class="carousel-item slide-three">
+          <img class="carousel-photo"
+            src="https://wallpaperbat.com/img/7223920-anime-girl-wallpaper.jpg"
+            alt="Whimsical illustrated scene" loading="lazy">
+          <div class="carousel-caption">
+            <p class="slide-eyebrow">TAKE A LITTLE BREAK</p>
+            <h2>A little play never hurts.</h2>
+            <p class="slide-description">Small games and gentle distractions for whenever you need a moment.</p>
+            <a href="games.html" class="comfort-button">Visit the Playroom <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
 
- <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
-   <span class="carousel-control-next-icon"></span>
- </button>
+      <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel"
+        data-bs-slide="prev" aria-label="Previous slide">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel"
+        data-bs-slide="next" aria-label="Next slide">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
+    </section>
 
-</div>
+    <!--feature cards -->
+    <section class="comfort-features" aria-labelledby="features-title">
+      <div class="features-container">
+        <div class="features-heading">
+          <div class="decorated-heading">
+            <span class="heading-flourish" aria-hidden="true">✿</span>
+            <h2 id="features-title">What's on your mind today?</h2>
+            <span class="heading-flourish" aria-hidden="true">✿</span>
+          </div>
+          <p>Pick a little corner to explore, relax, and feel at home.</p>
+        </div>
 
-<div class="hero-wrapper">
-	<input type="radio" name="hero" id="none" checked>
-	<input type="radio" name="hero" id="attendees">
-	<input type="radio" name="hero" id="vendors">
-	<input type="radio" name="hero" id="events">
+        <div class="feature-grid">
+          <button type="button" class="feature-card card-recipes" data-feature="recipes"
+            aria-controls="recipes-detail" aria-expanded="false">
+            <img src="assets/recipes.png" alt="" class="feature-icon" loading="lazy">
+            <h3>The Kitchen</h3>
+            <p>Recipes, treats &amp; comfort food</p>
+            <span class="card-ornament" aria-hidden="true"><span></span>♡<span></span></span>
+          </button>
+          <button type="button" class="feature-card card-notes" data-feature="notes"
+            aria-controls="notes-detail" aria-expanded="false">
+            <img src="assets/notes.png" alt="" class="feature-icon" loading="lazy">
+            <h3>Little Thoughts</h3>
+            <p>Notes, quotes &amp; everyday feelings</p>
+            <span class="card-ornament" aria-hidden="true"><span></span>♡<span></span></span>
+          </button>
+          <button type="button" class="feature-card card-games" data-feature="games"
+            aria-controls="games-detail" aria-expanded="false">
+            <img src="assets/games.png" alt="" class="feature-icon" loading="lazy">
+            <h3>The Playroom</h3>
+            <p>Small games for little breaks</p>
+            <span class="card-ornament" aria-hidden="true"><span></span>♡<span></span></span>
+          </button>
+        </div>
 
-	<section class = "hero-cards">
-		
-		<!--card 1-->
-		<label for="attendees" class="hero-card">
-			<img src="assets/Attendees.png" alt="Attendees Icon">
-			<h3 class = "stat"> 12,000+ </h3>
-			<p>Fans attended Irene Con 2025 </p>
-		</label>
-		
-		<!--card 2-->
-		<label for="vendors" class="hero-card">
-			<img src="assets/Vendors.png" alt="Vendors Icon">
-			<h3 class = "stat"> 350+ </h3>
-			<p>Independent artists & vendors in Artist Alley </p>
-		</label>
-		
-		<!--card 3-->
-		<label for="events" class="hero-card">
-			<img src="assets/Events.png" alt="Events Icon">
-			<h3 class = "stat"> 80+ </h3>
-			<p>Panels, performances & special guest events </p>
-		</label>
-	</section>
+        <div class="feature-details">
+          <div class="feature-detail" id="recipes-detail" hidden>
+            <h3>From My Kitchen ♡</h3>
+            <p>Favourite recipes, meals I've tried, and desserts I want to remember.</p>
+            <a href="recipes.html">Browse recipes →</a>
+          </div>
+          <div class="feature-detail" id="notes-detail" hidden>
+            <h3>Dear Diary...</h3>
+            <p>Sometimes it's a quote; sometimes it's a passing thought.</p>
+            <a href="notes.html">Explore notes →</a>
+          </div>
+          <div class="feature-detail" id="games-detail" hidden>
+            <h3>Time for a Little Break!</h3>
+            <p>Play something small and enjoy a moment of fun.</p>
+            <a href="games.html">Explore games →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-	<section class = "accordion-section">
-		<div class = "detail" id = "attendees-detail">
-			<h3>Attendee Experience</h3>
-			<p>Meet thousands of anime fans, cosplayers, and creators from across North America. sjsdsdf sdfsdfsd sdfsdg sdfsdkj sdfsdks sdfsdfs sgsdfsd sdfsdfsd sdfsdfsdfs.</p>
-		</div>
-		
-		<div class = "detail" id = "vendors-detail">
-			<h3>Artist Alley</h3>
-			<p>Explore handmade merch, prints, collectibles, and exclusive convention items. sdfs sdfrdsg sdfsdl gsdfskdf gsrdgflsdjf gsfglskdfj agdofgowe sdivjd aoisd psdksdg osdijg sfgs.</p>
-		</div>
-		
-		<div class = "detail" id = "events-detail">
-			<h3>Panels & Performances</h3>
-			<p>Enjoy live performances, cosplay contests, guest Q&As, and more. sdfs sdfrdsg sdfsdl gsdfskdf gsrdgflsdjf gsfglskdfj agdofgowe sdivjd aoisd psdksdg osdijg sfgs.</p>
-		</div>
-	</section>
+  <footer class="comfort-footer">
+    <span class="footer-line" aria-hidden="true"></span>
+    <span>MY LITTLE SPACE ♡ &nbsp;·&nbsp; A COZY SPACE FOR REST, CREATIVITY &amp; EVERYDAY JOYS.</span>
+    <span class="footer-line" aria-hidden="true"></span>
+  </footer>
 
-</div>
-
-<!-- Bootstrap JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-  const heroRadios = document.querySelectorAll('input[name="hero"]');
-  const noneRadio = document.getElementById("none");
-  let selectedHero = null;
-
-  heroRadios.forEach((radio) => {
-    if (radio.id !== "none") {
-      radio.addEventListener("click", () => {
-        if (selectedHero === radio.id) {
-          noneRadio.checked = true;
-          selectedHero = null;
-        } else {
-          selectedHero = radio.id;
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Clicking a card reveals its content; clicking it again collapses the panel.
+    const featureCards = document.querySelectorAll('.feature-card');
+    const featureDetails = document.querySelectorAll('.feature-detail');
+    featureCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const wasExpanded = card.getAttribute('aria-expanded') === 'true';
+        featureCards.forEach((item) => {
+          item.setAttribute('aria-expanded', 'false');
+          item.classList.remove('selected');
+        });
+        featureDetails.forEach((detail) => { detail.hidden = true; });
+        if (!wasExpanded) {
+          card.setAttribute('aria-expanded', 'true');
+          card.classList.add('selected');
+          document.getElementById(card.dataset.feature + '-detail').hidden = false;
         }
       });
-    }
-  });
-</script>
-
+    });
+  </script>
 </body>
 </html>

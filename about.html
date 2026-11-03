@@ -1,76 +1,93 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Candy Con</title>
+  <meta name="theme-color" content="#fff1f5">
+  <meta name="description" content="The story behind My Little Space — a cozy personal retreat for recipes, reflections, and little joys.">
+  <title>About ♡ | MY LITTLE SPACE</title>
 
-  <!-- bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
 
-  <!-- google font -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-
-  <!-- custom CSS -->
-  <link rel="stylesheet" href="style.css">
+  <!-- same and palette from homepage -->
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="about.css">
   <link rel="icon" type="image/png" href="assets/favicon.png">
 </head>
+<body class="home-page about-page">
+  <header class="top-bar">
+    <a href="index.html" class="brand-name" aria-label="My Little Space home">
+      <span class="brand-home-icon" aria-hidden="true"><img src="assets/home.png" alt=""></span>
+      <span>MY LITTLE SPACE <span class="brand-heart">♡</span></span>
+    </a>
 
-<body class="about-page">
+    <nav class="main-menu" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="recipes.html">The Kitchen</a>
+      <a href="notes.html">Little Thoughts</a>
+      <a href="games.html">The Playroom</a>
+      <a href="about.html" class="is-active" aria-current="page">About</a>
+    </nav>
 
-<header class="top-bar">
-  <!-- left side -->
-<div class="left-section">
-  <a href="index.html">
-    <img src="assets/home.png" alt="Back to Candy Con Home" class="logo home-logo">
-  </a>
-</div>
-  
-  <nav class="main-menu">
-		<a href="programming.html">Programming</a>
-		<a href="exhibitors.html">Exhibitors</a>
-		<a href="about.html">About</a>
-		<a href="faq.html">FAQ</a>
-	</nav>
+    <a href="contact.html" class="letterbox-link" aria-label="Visit the Letterbox">
+      <span aria-hidden="true">♡</span><span class="letterbox-label">Letterbox</span>
+    </a>
+  </header>
 
-  <!-- right side -->
-  <div class="utility-menu">
-    <a href="contact.html" class="utility-item">Contact Us</a>
-    <span class="utility-item">Log In</span>
-    <button class="utility-button">Sign Up</button>
-  </div>
-</header>
+  <main class="about-main">
+    <div class="about-decor about-decor-one" aria-hidden="true">✿</div>
+    <div class="about-decor about-decor-two" aria-hidden="true">✿</div>
 
-<main class="about-main">
-  <section class="about-content">
-    <div class="about-text">
-      <h1>About Candy Con</h1>
-      <p>
-        Candy Con is a sparkly little universe of panels, posters, cosplay dreams,
-        artist tables, random dance energy, midnight snack thoughts, and way too many
-        fictional characters living rent-free in everyone’s head.
-      </p>
-      <p>
-        This page does not need to make perfect sense. It can be soft, chaotic,
-        colorful, dramatic, cozy, loud, sleepy, magical, and slightly unserious all
-        at the same time.
-      </p>
-      <p>
-        Come for the anime vibes, stay for the questionable playlist choices, shiny
-        merch, dramatic stage lights, and the tiny joy of finding someone who likes
-        the exact same obscure character as you.
-      </p>
-    </div>
+    <section class="about-content" aria-labelledby="about-title">
+      <div class="about-text">
+        <p class="about-eyebrow">A NOTE FROM THE CREATOR ♡</p>
+        <h1 id="about-title">About <em>My Little Space</em></h1>
+        <div class="about-divider" aria-hidden="true"><span>✿</span></div>
 
-    <div class="about-image-area">
-      <img src="assets/favicon.png" alt="Irene Con Icon" class="about-circle-img">
-    </div>
-  </section>
-</main>
+        <p class="about-greeting">Hi there, and welcome to <strong>MY LITTLE SPACE</strong> ♡</p>
+        <p>
+          As a master's student juggling endless deadlines, assignments,
+          responsibilities, and all the little chaos that comes with life,
+          I sometimes wish the world would slow down just a little.
+          So, I created this cozy corner of the internet as a small escape
+          from the everyday rush — somewhere I can pause, breathe, and
+          simply be myself.
+        </p>
+        <p>
+          Here, I collect recipes that bring me comfort, jot down passing thoughts,
+          save words that resonate with me, and share little pieces of my life along
+          the way. Nothing here needs to be perfect or particularly meaningful.
+          It's simply a space for creativity, self-reflection, and finding joy in the little things.
+        </p>
+        <p>
+          Whether you're here to explore, unwind, or just take a break from your own
+          busy day, I hope this little space brings you a bit of warmth, too. 🌷
+        </p>
 
-<!-- Bootstrap JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <a class="about-cta" href="recipes.html">Come explore <span aria-hidden="true">→</span></a>
+      </div>
 
+      <aside class="about-art" aria-label="A little welcome illustration">
+        <div class="about-illustration">
+          <span class="about-sparkle sparkle-one" aria-hidden="true">✧</span>
+          <span class="about-sparkle sparkle-two" aria-hidden="true">✿</span>
+          <img src="assets/favicon.png" alt="My Little Space mascot" class="about-circle-img">
+          <span class="about-sparkle sparkle-three" aria-hidden="true">♡</span>
+        </div>
+        <p class="about-side-note">a tiny space to just be <span aria-hidden="true">♡</span></p>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="comfort-footer">
+    <span class="footer-line" aria-hidden="true"></span>
+    <span>MY LITTLE SPACE ♡ · A LITTLE WARMTH IN THE EVERYDAY</span>
+    <span class="footer-line" aria-hidden="true"></span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
