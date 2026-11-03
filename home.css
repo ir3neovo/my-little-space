@@ -368,6 +368,51 @@ body.home-page {
 }
 .home-page .footer-line { display: block; flex: 0 1 92px; height: 1px; background: #dca0b5; }
 
+
+/* Circular Home icon in navigation */
+.main-menu a.nav-home,
+.main-menu a.nav-home:visited {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+  padding: 0;
+
+  background: linear-gradient(145deg, #d58aa6, #ad5678);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+
+  box-shadow: 0 4px 12px rgba(134, 53, 79, 0.2);
+
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.main-menu .nav-home img {
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+}
+
+.main-menu a.nav-home:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(134, 53, 79, 0.3);
+}
+
+@media (max-width: 480px) {
+  .main-menu a.nav-home {
+    width: 36px;
+    height: 36px;
+  }
+
+  .main-menu .nav-home img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 /* TABLET + MOBILE */
 @media (max-width: 1100px) {
   .home-page .top-bar { grid-template-columns: 1fr auto; row-gap: 9px; }
