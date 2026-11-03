@@ -1,12 +1,14 @@
-/* MY LITTLE SPACE — Recipe box
+/* MY LITTLE SPACE — The Kitchen.
+   Featured recipes are part of the site. New entries are saved in this browser
+   until the database is connected.
 */
 (() => {
   'use strict';
   const KEY = 'my-little-space:recipe-drafts:v1';
-  // One featured recipe.
-  const demoRecipes = [
+  // Featured recipe. Additional user recipes are stored in this browser.
+  const featuredRecipes = [
     {
-      id: 'demo-4',
+      id: 'strawberry-matcha-latte',
       title: 'Strawberry Matcha Latte',
       category: 'Drinks',
       time: null, // Preparation time not provided.
@@ -28,7 +30,7 @@
         'Slowly pour the prepared matcha over the milk and enjoy.'
       ],
       createdAt: '2026-11-02',
-      source: 'demo'
+      source: 'featured'
     }
   ];
   const $ = (sel) => document.querySelector(sel);
@@ -45,7 +47,7 @@
   const form = $('#recipe-form');
   const colors = {Breakfast:'#f5d9df',Savoury:'#f6dfd7',Sweets:'#f4dce9',Drinks:'#e3ebe0'};
   const emoji = {Breakfast:'🥞',Savoury:'🍲',Sweets:'🍰',Drinks:'🍵'};
-  const all = () => [...drafts, ...demoRecipes];
+  const all = () => [...drafts, ...featuredRecipes];
   const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(drafts)); return true; } catch { alert('This browser blocked local storage. Your recipe could not be saved.'); return false; } };
   function render() {
     const items = all().filter(r => (category === 'All' || r.category === category) && [r.title,r.description,r.category].join(' ').toLowerCase().includes(search));
@@ -56,7 +58,7 @@
           : `<span class="recipe-emoji" aria-hidden="true">${escapeHTML(r.emoji || emoji[r.category] || '🍓')}</span>`}
         <span class="recipe-category-label">${escapeHTML(r.category)}</span>
       </div>
-      <div class="recipe-body"><span class="card-meta">${r.source === 'local' ? '♡ MY LOCAL RECIPE'}</span>
+      <div class="recipe-body"><span class="card-meta">${r.source === 'local' ? '♡ MY LOCAL RECIPE' : '♡ FROM MY KITCHEN'}</span>
       <h3 class="card-title">${escapeHTML(r.title)}</h3><p class="card-desc">${escapeHTML(r.description || 'A lovely little recipe for a cozy moment.')}</p>
       <div class="card-bottom"><span class="recipe-stats">${r.time ? `◷ ${Number(r.time)} min` : '♡ Made with love'}</span><button type="button" class="subtle-link" data-open-recipe="${escapeHTML(r.id)}">View recipe ↗</button></div></div></article>`).join('');
     $('#recipe-empty').hidden = items.length !== 0;
@@ -66,7 +68,7 @@
     $('#recipe-detail-title').textContent = r.title;
     const ingredients = Array.isArray(r.ingredients) ? r.ingredients : [];
     const steps = Array.isArray(r.steps) ? r.steps : [];
-    $('#recipe-detail-content').innerHTML = `<span class="dialog-stamp">${escapeHTML(r.category)}${r.time ? ` · ${Number(r.time)} minutes` : ''} · ${r.source==='local'?'saved in this browser'}</span>
+    $('#recipe-detail-content').innerHTML = `<span class="dialog-stamp">${escapeHTML(r.category)}${r.time ? ` · ${Number(r.time)} minutes` : ''}${r.source === 'local' ? ' · saved in this browser' : ''}</span>
       ${r.image ? `<img class="recipe-detail-photo" src="${escapeHTML(r.image)}" alt="${escapeHTML(r.title)}">` : ''}
       <p>${escapeHTML(r.description)}</p><h3>What you'll need</h3><ul>${ingredients.map(t => `<li>${escapeHTML(t)}</li>`).join('')}</ul>
       <h3>How to make it</h3><ol>${steps.map(t => `<li>${escapeHTML(t)}</li>`).join('')}</ol>
