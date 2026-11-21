@@ -370,8 +370,8 @@ body.home-page {
 
 
 /* Circular Home icon in navigation */
-.main-menu a.nav-home,
-.main-menu a.nav-home:visited {
+.home-page .main-menu a.nav-home,
+.home-page .main-menu a.nav-home:visited {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -390,24 +390,24 @@ body.home-page {
               box-shadow 0.25s ease;
 }
 
-.main-menu .nav-home img {
+.home-page .main-menu .nav-home img {
   width: 23px;
   height: 23px;
   object-fit: contain;
 }
 
-.main-menu a.nav-home:hover {
+.home-page .main-menu a.nav-home:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 18px rgba(134, 53, 79, 0.3);
 }
 
 @media (max-width: 480px) {
-  .main-menu a.nav-home {
+  .home-page .main-menu a.nav-home {
     width: 36px;
     height: 36px;
   }
 
-  .main-menu .nav-home img {
+  .home-page .main-menu .nav-home img {
     width: 20px;
     height: 20px;
   }
